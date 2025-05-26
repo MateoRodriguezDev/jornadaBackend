@@ -19,6 +19,6 @@ De base ya tendrían que tener en la base de datos un usuario superadmin,  de no
 localhost:${PORT}/users/superadmin
 ````
 
-No hay panel de control para superadmin por lo que las jornadas se tienen que crear desde Postman o alguna aplicación parecida
+No hay frontend de panel de control para superadmin por lo que las jornadas se tienen que crear desde Postman o alguna aplicación parecida
 
 Falta logica de imagenes
