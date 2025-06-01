@@ -1,9 +1,10 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, Req, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, Req, BadRequestException, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { JornadasService } from './jornadas.service';
 import { CreateJornadaDto } from './dto/create-jornada.dto';
 import { UpdateJornadaDto } from './dto/update-jornada.dto';
 import { AuthGuard } from '../auth/guards/auth.guard';
 import { ChangeStateDto } from './dto/change-state.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('jornadas')
 @UseGuards(AuthGuard)
@@ -41,8 +42,11 @@ export class JornadasController {
     if(typeof user?.userId === 'number') return this.jornadasService.getUserJornadas(user.userId)
   }
 
+  
+  @UseInterceptors(FileInterceptor('image'))
   @Post('change-jornada-state/:id')
-  changeJornadaState(@Param('id', ParseIntPipe) id: number, @Body() changeStateDto: ChangeStateDto){
-    return this.jornadasService.chageJornadaState(id, changeStateDto)
+  changeJornadaState(@Param('id', ParseIntPipe) id: number, @Body() changeStateDto: ChangeStateDto, @UploadedFile() image: Express.Multer.File){
+    console.log(image)
+    return this.jornadasService.chageJornadaState(id, changeStateDto, image)
   }
 }

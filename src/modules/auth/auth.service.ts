@@ -24,7 +24,8 @@ export class AuthService {
     }
 
     if (email !== envs.superadmin_email) {
-      const isPasswordValid = await checkPassword(password, user.password);
+      // const isPasswordValid = await checkPassword(password, user.password);
+      const isPasswordValid = password === user.password;
       if (!isPasswordValid) {
         throw new UnauthorizedException("Invalid Password");
       }
