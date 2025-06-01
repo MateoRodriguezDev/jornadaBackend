@@ -46,7 +46,6 @@ export class JornadasController {
   @UseInterceptors(FileInterceptor('image'))
   @Post('change-jornada-state/:id')
   changeJornadaState(@Param('id', ParseIntPipe) id: number, @Body() changeStateDto: ChangeStateDto, @UploadedFile() image: Express.Multer.File){
-    console.log(image)
     return this.jornadasService.chageJornadaState(id, changeStateDto, image)
   }
 }

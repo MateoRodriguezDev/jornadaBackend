@@ -39,9 +39,9 @@ export class CreateJornadaDto {
 
   @IsOptional()
   @IsString()
-  firstImgUrl?: string;
+  firstImgURL?: string;
 
   @IsOptional()
   @IsString()
-  lastImgUrl?: string;
+  lastImgURL?: string;
 }

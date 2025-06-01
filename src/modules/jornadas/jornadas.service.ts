@@ -7,6 +7,8 @@ import { UsersService } from '../users/users.service';
 import { calulateDistance } from '../../helpers/geolib.helper'
 import { envs } from 'src/config';
 import { uploadIMG } from 'src/helpers/file.helper';
+import { v4 as uuidv4 } from 'uuid';
+
 
 @Injectable()
 export class JornadasService {
@@ -64,7 +66,7 @@ export class JornadasService {
 
   async chageJornadaState(jornadaId: number, persona: { lat: number, long: number }, image: Express.Multer.File) {
     const jornada = await this.findOne(jornadaId)
-    console.log(new Date())
+ 
 
     //Verificamos si ya es la hora de la jornada
     const fechaActual = new Date();
@@ -85,19 +87,20 @@ export class JornadasService {
       case 'Pendiente':
         //Subo la imagen a Firebase Storage
         if (!image) throw new BadRequestException('Must send an image')
+        image.originalname = uuidv4()
         uploadIMG(image)
 
         //Actualizo la jornada a En Proceso y le subo la imagen
-        return this.update(jornadaId, { state: 'En Proceso', dateStarted: new Date(), firstImgUrl: `jornada/img/${image.originalname}`})
+        return this.update(jornadaId, { state: 'En Proceso', dateStarted: new Date(), firstImgURL: `jornada/img/${image.originalname}`})
 
 
       case 'En Proceso':
         //Subo la imagen a Firebase Storage
         if (!image) throw new BadRequestException('Must send an image')
+        image.originalname = uuidv4()
         uploadIMG(image)
-
-        //Actualizo la jornada a En Proceso y le subo la imagen
-        return this.update(jornadaId, { state: 'Finalizada', dateFinished: new Date(), firstImgUrl: `jornada/img/${image.originalname}`})
+        //Actualizo la jornada a Finalizada y le subo la imagen
+        return this.update(jornadaId, { state: 'Finalizada', dateFinished: new Date(), lastImgURL: `jornada/img/${image.originalname}`})
 
       case 'Finalizada':
         throw new BadRequestException('Jornada already finished')
