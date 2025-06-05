@@ -18,6 +18,15 @@ export class User extends Model<User> {
   email: string;
 
   @Column
+  firstName: string;
+
+  @Column
+  lastName: string;
+
+  @Column
+  degree: string;
+
+  @Column
   password: string;
 
   @Column({defaultValue: 'client' })

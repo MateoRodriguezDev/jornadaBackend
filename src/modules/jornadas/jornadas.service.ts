@@ -61,14 +61,14 @@ export class JornadasService {
     if (!user) throw new BadRequestException('User Not Found')
 
     const jornadas = await this.jornadaModel.findAll({ where: { userId } })
-    return jornadas
+    return {jornadas, user: {firstName: user.firstName, lastName: user.lastName, degree: user.degree, email: user.email}}
   }
 
   async chageJornadaState(jornadaId: number, persona: { lat: number, long: number }, image: Express.Multer.File) {
     const jornada = await this.findOne(jornadaId)
  
 
-    //Verificamos si ya es la hora de la jornada
+    //Verifico si ya es la hora de la jornada
     const fechaActual = new Date();
     if (fechaActual < new Date(jornada.startingDate) || fechaActual > new Date(jornada.finishingDate)) {
       throw new BadRequestException(`Jornada no está en curso`);

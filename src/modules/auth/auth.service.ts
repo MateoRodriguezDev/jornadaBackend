@@ -10,8 +10,8 @@ import { envs } from "src/config";
 export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
-  async register({ password, email }: RegisterDto) {
-    await this.usersService.create({ email, password });
+  async register(registerDto: RegisterDto) {
+    await this.usersService.create(registerDto);
     return {
       message: "User created successfully",
     };

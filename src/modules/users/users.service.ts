@@ -11,7 +11,7 @@ export class UsersService {
   constructor(
     @InjectModel(User)
     private userModel: typeof User,
-  ) {}
+  ) { }
 
   async create(createUserDto: CreateUserDto): Promise<User> {
     const { email } = createUserDto;
@@ -37,6 +37,7 @@ export class UsersService {
   }
 
   async findOne(id: number, getDeletes?: boolean): Promise<User> {
+    console.log(id)
     const where: any = { id, deletedAt: null };
     if (getDeletes) delete where.deletedAt;
     const user = await this.userModel.findOne({ where });
@@ -108,5 +109,13 @@ export class UsersService {
 
     const hashedPassword = await hashPassword(password);
     return this.userModel.create({ email, password: hashedPassword, role });
+  }
+
+  async getUser(userId: number) {
+    const user = await this.findOne(userId)
+    if (!user) throw new BadRequestException('User Not Found')
+
+
+    return { firstName: user.firstName, lastName: user.lastName, degree: user.degree }
   }
 }

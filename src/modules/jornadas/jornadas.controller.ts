@@ -9,7 +9,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 @Controller('jornadas')
 @UseGuards(AuthGuard)
 export class JornadasController {
-  constructor(private readonly jornadasService: JornadasService) {}
+  constructor(private readonly jornadasService: JornadasService) { }
 
   @Post()
   create(@Body() createJornadaDto: CreateJornadaDto) {
@@ -37,15 +37,15 @@ export class JornadasController {
   }
 
   @Get('mis-jornadas')
-  getUserJornadas(@Req() req){
+  getUserJornadas(@Req() req) {
     const user = req.user
-    if(typeof user?.userId === 'number') return this.jornadasService.getUserJornadas(user.userId)
+    if (typeof user?.userId === 'number') return this.jornadasService.getUserJornadas(user.userId)
   }
 
-  
+
   @UseInterceptors(FileInterceptor('image'))
   @Post('change-jornada-state/:id')
-  changeJornadaState(@Param('id', ParseIntPipe) id: number, @Body() changeStateDto: ChangeStateDto, @UploadedFile() image: Express.Multer.File){
+  changeJornadaState(@Param('id', ParseIntPipe) id: number, @Body() changeStateDto: ChangeStateDto, @UploadedFile() image: Express.Multer.File) {
     return this.jornadasService.chageJornadaState(id, changeStateDto, image)
   }
 }
