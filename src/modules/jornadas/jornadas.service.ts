@@ -74,7 +74,7 @@ export class JornadasService {
 
     //Verifico la distancia entre persona y jornada 
     const distancia = calulateDistance({ lat: persona.lat, long: persona.long }, { lat: jornada.lat, long: jornada.long })
-    if (distancia > envs.distance) {
+    if (distancia > envs.distance && envs.distance > 0) {
       throw new BadRequestException('Too far from the Jornada location, go back to continue')
     }
 
