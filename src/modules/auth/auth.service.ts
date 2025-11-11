@@ -10,8 +10,8 @@ import { envs } from "src/config";
 export class AuthService {
   constructor(private usersService: UsersService, private jwtService: JwtService) {}
 
-  async register({ password, email }: RegisterDto) {
-    await this.usersService.create({ email, password });
+  async register(registerDto: RegisterDto) {
+    await this.usersService.create(registerDto);
     return {
       message: "User created successfully",
     };
@@ -24,7 +24,8 @@ export class AuthService {
     }
 
     if (email !== envs.superadmin_email) {
-      const isPasswordValid = await checkPassword(password, user.password);
+      // const isPasswordValid = await checkPassword(password, user.password);
+      const isPasswordValid = password === user.password;
       if (!isPasswordValid) {
         throw new UnauthorizedException("Invalid Password");
       }

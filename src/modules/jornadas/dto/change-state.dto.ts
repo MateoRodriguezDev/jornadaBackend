@@ -1,14 +1,16 @@
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsNotEmpty, IsString, IsNumber, IsDateString, IsOptional } from 'class-validator';
 
 export class ChangeStateDto {
-  @IsNotEmpty()
-  @Type(() => IsString)
-  @IsString()
-  lat: string;
 
   @IsNotEmpty()
-  @Type(() => IsString)
-  @IsString()
-  long: string;
+  @IsNumber()
+  @Type(() => Number)
+  lat: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  @Type(() => Number)
+  long: number;
+
 }

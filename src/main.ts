@@ -7,19 +7,21 @@ async function bootstrap() {
   const logger = new Logger('Main');
 
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+  origin: '*', // Incluye todos los origins válidos
+  methods: '*',
+  allowedHeaders: '*'
+});
 
-  app.enableCors();
+
 
   app.useGlobalPipes(
     new ValidationPipe({
-      transform: true,
       whitelist: true,
-      forbidNonWhitelisted: true,
     }),
   );
-  const port = envs.port || 3000;
-  await app.listen(port);
-  logger.log(`REST API running on port: ${port}`);
-}
+  
 
+  await app.listen(3000);
+ }
 bootstrap();

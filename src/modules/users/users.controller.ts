@@ -1,11 +1,13 @@
-import { Controller, Post, Get, Param, Body, Patch, Delete, HttpCode, HttpStatus } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, Patch, Delete, HttpCode, HttpStatus, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { AuthGuard } from '../auth/guards/auth.guard';
 
 @Controller('users')
+@UseGuards(AuthGuard)
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -47,4 +49,7 @@ export class UsersController {
   createSuperAdmin() {
     return this.usersService.createSuperAdmin();
   }
+
+
+ 
 }

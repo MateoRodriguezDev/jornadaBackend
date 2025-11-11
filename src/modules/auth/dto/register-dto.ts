@@ -9,4 +9,13 @@ export class RegisterDto {
   @MinLength(6)
   @Transform(({ value }) => value.trim())
   password: string;
+
+  @IsString()
+  firstName: string
+
+  @IsString()
+  lastName: string
+
+  @IsString()
+  degree: string
 }
