@@ -21,6 +21,6 @@ localhost:${PORT}/users/superadmin
 
 No hay frontend de panel de control para superadmin por lo que las jornadas se tienen que crear desde Postman o alguna aplicación parecida
 
-Falta logica de imagenes
 
-Si a la variable de entorno DISTANCE se la deja en 0 se ignora la distancia para testear
+
+Hay una variable de entorno que se llama CHECK_DISTANCE que sirve para deshabilitar el condicional que revisa la distancia, esto para poder testear mas facil
