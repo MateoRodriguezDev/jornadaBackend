@@ -29,4 +29,6 @@ localhost:${PORT}/users/superadmin
 
 
 ### Firebase no me dejaba tener las variables de entorno publicas por lo que se las deje en un .txt en la entrega del campus
+
+
 ### Le dejo tambien un archivo .sql para poder revisar rapido el funcionamiento de la app, una vez tenga levantado el front y el back con la base de datos creada importe ese archivo .sql a la base de datos.
